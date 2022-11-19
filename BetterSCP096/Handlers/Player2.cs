@@ -26,12 +26,12 @@ namespace BetterSCP096.Handlers
 
         public void OnLookingAt096(AddingTargetEventArgs ev)
         {
-            ev.EnrageTimeToAdd = plugin.Config.EnrageTimeToAdd;
-            ev.Scp096.ArtificialHealth = ev.Scp096.ArtificialHealth + plugin.Config.HumeShieldAmount;
+            ev.Scp096.AddAhp(plugin.Config.HumeShieldAmount);
+            if (!plugin.Config.IsUseBlockerEnabled) return;
             IsPlayerPanicking = true;
             Log.Debug($"User is panicked and the bool is: {IsPlayerPanicking}");
+            Timing.RunCoroutine(UseCooldownHint(ev.Target));
             Timing.RunCoroutine(UseCooldown(ev.Target));
-            IsPlayerPanicking = false;
             Log.Debug($"User stopped panicking and the bool is: {IsPlayerPanicking}");
         }
 
@@ -41,10 +41,23 @@ namespace BetterSCP096.Handlers
                 ev.Killer.Heal(plugin.Config.HealAmount, plugin.Config.ShouldHealingOverrideMaxHealth);
         }
 
+        public void OnEnraging(EnragingEventArgs ev)
+        {
+            ev.IsAllowed = false;
+        }
+
         public void OnUsingItem(UsingItemEventArgs ev)
         {
-            if (IsPlayerPanicking != true) return;
+            if (!IsPlayerPanicking) return;
             ev.IsAllowed = false;
+            Log.Info($"IsPanicked is {IsPlayerPanicking}");
+        }
+
+        public IEnumerator<float> UseCooldownHint(Player target)
+        {
+            yield return Timing.WaitForSeconds(plugin.Config.UseCooldown);
+
+            IsPlayerPanicking = false;
         }
 
         public IEnumerator<float> UseCooldown(Player target)
@@ -54,8 +67,10 @@ namespace BetterSCP096.Handlers
                 yield return Timing.WaitForSeconds(1f);
 
                 Log.Debug($"This is the cooldown: {Cooldown}");
-                target.ShowHint($"You <color=red>CAN'T</color> use items for {Cooldown} more seconds", 5);
+                if (Cooldown != 0)
+                    target.ShowHint($"You <color=red>CAN'T</color> use items for {Cooldown} more seconds", 1);
             }
         }
+
     }
 }
