@@ -1,6 +1,7 @@
 ﻿using Exiled.API.Features;
 using System;
 using Player = Exiled.Events.Handlers.Player;
+using Scp096 = Exiled.Events.Handlers.Scp096;
 using HarmonyLib;
 namespace BetterSCP096
 {
@@ -23,8 +24,8 @@ namespace BetterSCP096
 
             Player.ChangingRole += player.OnChangingRole;
             Player.UsingItem += player.OnUsingItem;
-            Exiled.Events.Handlers.Scp096.AddingTarget += player.OnLookingAt096;
             Player.Dying += player.OnKilling;
+            Scp096.AddingTarget += player.OnLookingAt096;
 
             base.OnEnabled();
         }
@@ -35,8 +36,8 @@ namespace BetterSCP096
 
             Player.ChangingRole -= player.OnChangingRole;
             Player.UsingItem -= player.OnUsingItem;
-            Exiled.Events.Handlers.Scp096.AddingTarget -= player.OnLookingAt096;
             Player.Dying -= player.OnKilling;
+            Scp096.AddingTarget -= player.OnLookingAt096;
 
             player = null;
 

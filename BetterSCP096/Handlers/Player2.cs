@@ -10,7 +10,7 @@ namespace BetterSCP096.Handlers
         private readonly Plugin plugin;
         public Player2(Plugin plugin) => this.plugin = plugin;
 
-        private bool IsPlayerPanicking { get; set; } = false;
+        private bool IsPlayerPanicking = false;
         public void OnChangingRole(ChangingRoleEventArgs ev)
         {
             Timing.CallDelayed(0.5f, () =>
@@ -67,7 +67,7 @@ namespace BetterSCP096.Handlers
                 yield return Timing.WaitForSeconds(1f);
 
                 Log.Debug($"This is the cooldown: {Cooldown}");
-                if (Cooldown != 0)
+                while (Cooldown > 0)
                     target.ShowHint($"You <color=red>CAN'T</color> use items for {Cooldown} more seconds", 1);
             }
         }
