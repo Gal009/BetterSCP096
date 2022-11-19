@@ -31,7 +31,7 @@ namespace BetterSCP096
         public string PanickedMessage { get; set; } = "You are too panicked to use this item.";
 
         [Description("The amount of time the player will have to wait until they can use items after looking at 096's face")]
-        public int UseCooldown { get; set; } = 20;
+        public int UseCooldown { get; set; } = 5;
 
         [Description("If when someone looks at 096 the person should be blocked from using items for a certain amount of time")]
         public bool IsUseBlockerEnabled { get; set; } = true;
