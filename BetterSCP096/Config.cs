@@ -8,7 +8,6 @@ namespace BetterSCP096
         [Description("If the plugin is enabled")]
         public bool IsEnabled { get; set; } = true;
 
-
         [Description("096's Health when he spawns")]
         public int Scp096Health { get; set; } = 2250;
 
