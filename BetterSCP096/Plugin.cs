@@ -3,13 +3,13 @@ using System;
 using Player = Exiled.Events.Handlers.Player;
 using Scp096 = Exiled.Events.Handlers.Scp096;
 using HarmonyLib;
-namespace BetterSCP096
+namespace Betterscp096
 {
     public class Plugin : Plugin<Config>
     {
         public override Version RequiredExiledVersion { get; } = new Version(5, 2, 0);
-        public override string Name { get; } = "BetterSCP096";
-        public override Version Version { get; } = new Version(1, 1, 5);
+        public override string Name { get; } = "Betterscp096";
+        public override Version Version { get; } = new Version(1, 2, 0);
 
         public Handlers.PlayerHandler player;
 
@@ -26,8 +26,8 @@ namespace BetterSCP096
             Player.ChangingRole += player.OnChangingRole;
             Player.UsingItem += player.OnUsingItem;
             Player.Dying += player.OnKilling;
+            Player.Hurting += player.OnHurting;
             Scp096.AddingTarget += player.OnLookingAt096;
-            Scp096.CalmingDown += player.OnRageEnding;
 
             base.OnEnabled();
         }
@@ -38,8 +38,8 @@ namespace BetterSCP096
             Player.ChangingRole -= player.OnChangingRole;
             Player.UsingItem -= player.OnUsingItem;
             Player.Dying -= player.OnKilling;
+            Player.Hurting -= player.OnHurting;
             Scp096.AddingTarget -= player.OnLookingAt096;
-            Scp096.CalmingDown -= player.OnRageEnding;
 
             player = null;
 

@@ -1,7 +1,7 @@
 ﻿using Exiled.API.Interfaces;
 using System.ComponentModel;
 
-namespace BetterSCP096
+namespace Betterscp096
 {
     public sealed class Config : IConfig
     {
@@ -26,14 +26,17 @@ namespace BetterSCP096
         [Description("If 096's healing should override his max health")]
         public bool ShouldHealingOverrideMaxHealth { get; set; } = false;
 
-        [Description("The message that is shown when someone has looked at 096 and tries to use a item")]
-        public string PanickedMessage { get; set; } = "You are too panicked to use this item.";
-
         [Description("The amount of time the player will have to wait until they can use items after looking at 096's face")]
         public int UseCooldown { get; set; } = 5;
 
         [Description("If when someone looks at 096 the person should be blocked from using items for a certain amount of time")]
         public bool IsUseBlockerEnabled { get; set; } = true;
+
+        [Description("If Scp096 Should insta-kill")]
+        public bool Should096InstaKill { get; set; } = true;
+
+        [Description("Scp096's attack damage if he can't insta-kill")]
+        public float Scp096AttackDamage { get; set; } = 50f;
 
     }
 }

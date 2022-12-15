@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using PlayableScps;
 
-namespace BetterSCP096.Patches
+namespace Betterscp096.Patches
 {
     [HarmonyPatch(typeof(Scp096))]
     [HarmonyPatch(nameof(Scp096.ResetShield))]
